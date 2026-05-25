@@ -1,0 +1,338 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cv-bg:#0D0B1A;
+  --cv-surface:#16122A;
+  --cv-surface2:#1E1935;
+  --cv-purple:#6C4FE8;
+  --cv-violet:#9B7BF5;
+  --cv-pink:#C05BCC;
+  --cv-border:rgba(108,79,232,0.25);
+  --cv-border2:rgba(108,79,232,0.45);
+  --cv-text:#F0EEF8;
+  --cv-muted:rgba(240,238,248,0.55);
+}
+body{font-family:'Inter',sans-serif;background:var(--cv-bg);color:var(--cv-text);min-height:100vh}
+
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:.85rem 2rem;border-bottom:.5px solid var(--cv-border);background:rgba(13,11,26,0.97);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.logo-area{display:flex;align-items:center}
+.logo-img{height:52px;width:auto;mix-blend-mode:screen}
+.badge-prop{font-size:11px;background:rgba(108,79,232,0.18);color:#B8A6F8;border:.5px solid rgba(108,79,232,0.35);padding:4px 12px;border-radius:20px;letter-spacing:.04em}
+
+.hero{text-align:center;padding:4.5rem 1.5rem 3.5rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse at center,rgba(108,79,232,0.18) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#B8A6F8;background:rgba(108,79,232,0.14);border:.5px solid rgba(108,79,232,0.3);padding:5px 14px;border-radius:20px;margin-bottom:1.75rem}
+.hero h1{font-size:clamp(28px,4.5vw,44px);font-weight:800;line-height:1.15;margin-bottom:1rem;background:linear-gradient(135deg,#fff 20%,#B8A6F8 60%,#C05BCC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:16px;color:var(--cv-muted);max-width:580px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-price-pill{display:inline-flex;align-items:center;gap:16px;background:var(--cv-surface);border:.5px solid var(--cv-border2);border-radius:50px;padding:.65rem 1.75rem;flex-wrap:wrap;justify-content:center}
+.price-main{font-size:22px;font-weight:800;color:#fff}
+.price-main span{font-size:14px;font-weight:500;color:var(--cv-muted);margin-right:4px}
+.price-divider{width:.5px;height:28px;background:var(--cv-border2)}
+.price-parcel{font-size:13px;color:var(--cv-violet)}
+
+.section{padding:1.5rem 2rem 2rem}
+.section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cv-violet);margin-bottom:.4rem}
+.section-title{font-size:20px;font-weight:700;color:var(--cv-text);margin-bottom:.5rem}
+.section-desc{font-size:14px;color:var(--cv-muted);line-height:1.6;max-width:700px;margin-bottom:2rem}
+
+.divider{height:.5px;background:var(--cv-border);margin:0 2rem}
+
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.25rem;padding:0 2rem 2rem}
+
+.project-card{background:var(--cv-surface);border:.5px solid var(--cv-border);border-radius:14px;overflow:hidden;transition:border-color .2s,transform .2s;cursor:pointer}
+.project-card:hover{border-color:var(--cv-border2);transform:translateY(-3px)}
+
+.browser-bar{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#0f0d1f}
+.browser-dots{display:flex;gap:5px}
+.dot{width:9px;height:9px;border-radius:50%}
+.dot-r{background:#FF5F57}
+.dot-y{background:#FEBC2E}
+.dot-g{background:#28C840}
+.browser-url{flex:1;background:rgba(255,255,255,0.06);border:.5px solid rgba(255,255,255,0.1);border-radius:5px;padding:3px 10px;font-size:10px;color:rgba(240,238,248,0.5);font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.browser-screen{width:100%;height:155px;background:#1a1530;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
+.screen-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,#12102a 0%,#1a1535 100%)}
+.screen-placeholder .site-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#6C4FE8,#C05BCC);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff}
+.screen-placeholder .site-label{font-size:12px;color:rgba(240,238,248,0.4)}
+
+.card-body{padding:.9rem 1rem}
+.card-title{font-size:14px;font-weight:700;color:var(--cv-text);margin-bottom:.3rem}
+.card-desc{font-size:12px;color:var(--cv-muted);line-height:1.5;margin-bottom:.75rem}
+.card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.75rem}
+.tag{font-size:10px;padding:3px 9px;border-radius:12px;border:.5px solid;font-weight:500}
+.tag-p{background:rgba(108,79,232,0.12);color:#B8A6F8;border-color:rgba(108,79,232,0.25)}
+.tag-g{background:rgba(40,200,120,0.1);color:#6DE8B2;border-color:rgba(40,200,120,0.2)}
+.tag-o{background:rgba(254,188,46,0.1);color:#FEC96E;border-color:rgba(254,188,46,0.2)}
+.tag-pk{background:rgba(192,91,204,0.12);color:#E49CF0;border-color:rgba(192,91,204,0.25)}
+
+.card-link{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--cv-violet);text-decoration:none;border:.5px solid rgba(108,79,232,0.3);border-radius:8px;padding:5px 10px;transition:background .15s}
+.card-link:hover{background:rgba(108,79,232,0.12)}
+.card-link i{font-size:12px}
+
+.value-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+.value-card{background:var(--cv-surface);border:.5px solid var(--cv-border);border-radius:12px;padding:1rem 1.1rem}
+.value-icon{font-size:22px;margin-bottom:.5rem;color:var(--cv-violet)}
+.value-title{font-size:13px;font-weight:700;color:var(--cv-text);margin-bottom:.3rem}
+.value-desc{font-size:12px;color:var(--cv-muted);line-height:1.5}
+
+.cta-block{background:var(--cv-surface2);border:.5px solid var(--cv-border2);border-radius:16px;padding:2.25rem 2rem;text-align:center;margin:0 2rem 2.5rem;position:relative;overflow:hidden}
+.cta-block::before{content:'';position:absolute;top:-50px;right:-50px;width:250px;height:250px;background:radial-gradient(ellipse,rgba(192,91,204,0.12),transparent 70%);pointer-events:none}
+.cta-block::after{content:'';position:absolute;bottom:-50px;left:-50px;width:200px;height:200px;background:radial-gradient(ellipse,rgba(108,79,232,0.1),transparent 70%);pointer-events:none}
+.cta-badge{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6DE8B2;background:rgba(40,200,120,0.1);border:.5px solid rgba(40,200,120,0.25);padding:4px 14px;border-radius:20px;margin-bottom:1rem}
+.cta-block h2{font-size:22px;font-weight:800;color:var(--cv-text);margin-bottom:.5rem}
+.cta-block p{font-size:14px;color:var(--cv-muted);margin-bottom:1.5rem;line-height:1.6}
+.price-row{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.price-big{text-align:center}
+.price-big .label{font-size:12px;color:var(--cv-muted);margin-bottom:.2rem}
+.price-big .value{font-size:34px;font-weight:800;color:#fff;line-height:1}
+.price-big .value .cur{font-size:18px;font-weight:600;vertical-align:super;line-height:0}
+.price-sep{width:.5px;height:50px;background:var(--cv-border2)}
+.price-alt{text-align:center}
+.price-alt .label{font-size:12px;color:var(--cv-muted);margin-bottom:.2rem}
+.price-alt .value{font-size:22px;font-weight:700;color:var(--cv-violet)}
+.price-alt .note{font-size:11px;color:var(--cv-muted);margin-top:.15rem}
+
+.btn-cta{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#6C4FE8,#C05BCC);color:#fff;border:none;border-radius:10px;padding:.8rem 2rem;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.02em;transition:opacity .15s}
+.btn-cta:hover{opacity:.88}
+.btn-cta i{font-size:16px}
+
+.footer{text-align:center;padding:1.5rem;border-top:.5px solid var(--cv-border)}
+.footer-txt{font-size:12px;color:rgba(240,238,248,0.3)}
+</style>
+
+<h2 class="sr-only">Portfólio de websites da Convertido Marketing</h2>
+
+<div class="topbar">
+  <div class="logo-area">
+    <img class="logo-img" src="data:image/jpeg;base64,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" alt="Convertido Marketing">
+  </div>
+  <span class="badge-prop">Portfólio · Websites</span>
+</div>
+
+<div class="hero">
+  <div class="hero-tag"><i class="ti ti-world" aria-hidden="true"></i> Desenvolvimento Web</div>
+  <h1>Sites que vendem.<br>Experiências que convertem.</h1>
+  <p class="hero-sub">Da estratégia ao pixel final — criamos presença digital de alta performance que une identidade de marca, usabilidade e foco em resultado real.</p>
+  <div class="hero-price-pill">
+    <span class="price-main"><span>A partir de</span> R$ 4.997,00</span>
+    <div class="price-divider"></div>
+    <span class="price-parcel"><i class="ti ti-credit-card" style="vertical-align:-2px;margin-right:4px" aria-hidden="true"></i>4× sem juros no cartão</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="section-label">Nosso portfólio</div>
+  <div class="section-title">Projetos entregues</div>
+  <div class="section-desc">Cada projeto nasce de um Discovery estratégico. Conheça cases reais de clientes que confiaram na Convertido para construir sua presença digital.</div>
+</div>
+
+<div class="projects-grid">
+
+  <div class="project-card">
+    <div class="browser-bar">
+      <div class="browser-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <div class="browser-url">sudesteatacado.com.br</div>
+    </div>
+    <div class="browser-screen">
+      <div class="screen-placeholder">
+        <div class="site-icon">SA</div>
+        <span class="site-label">sudesteatacado.com.br</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Sudeste Atacado</div>
+      <div class="card-desc">E-commerce atacadista com catálogo robusto, navegação otimizada para conversão e integração com sistema de pedidos B2B.</div>
+      <div class="card-tags">
+        <span class="tag tag-p">E-commerce</span>
+        <span class="tag tag-g">B2B</span>
+        <span class="tag tag-o">Performance</span>
+      </div>
+      <a class="card-link" href="https://sudesteatacado.com.br" target="_blank"><i class="ti ti-external-link"></i> Visitar site</a>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="browser-bar">
+      <div class="browser-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <div class="browser-url">vaidevendas.com.br</div>
+    </div>
+    <div class="browser-screen">
+      <div class="screen-placeholder">
+        <div class="site-icon">VV</div>
+        <span class="site-label">vaidevendas.com.br</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Vai de Vendas</div>
+      <div class="card-desc">Plataforma comercial com identidade vibrante, foco em captação de leads e estrutura para funil de vendas consultivo.</div>
+      <div class="card-tags">
+        <span class="tag tag-pk">Institucional</span>
+        <span class="tag tag-p">Lead Gen</span>
+        <span class="tag tag-g">Vendas</span>
+      </div>
+      <a class="card-link" href="https://vaidevendas.com.br" target="_blank"><i class="ti ti-external-link"></i> Visitar site</a>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="browser-bar">
+      <div class="browser-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <div class="browser-url">elo-site-five.vercel.app</div>
+    </div>
+    <div class="browser-screen">
+      <div class="screen-placeholder">
+        <div class="site-icon">EL</div>
+        <span class="site-label">Elo — Site Institucional</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Elo</div>
+      <div class="card-desc">Site institucional moderno com design minimalista, foco em storytelling de marca e navegação fluida em todos os dispositivos.</div>
+      <div class="card-tags">
+        <span class="tag tag-p">Institucional</span>
+        <span class="tag tag-g">Design Premium</span>
+        <span class="tag tag-o">Responsivo</span>
+      </div>
+      <a class="card-link" href="https://elo-site-five.vercel.app/" target="_blank"><i class="ti ti-external-link"></i> Visitar site</a>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="browser-bar">
+      <div class="browser-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <div class="browser-url">marionmadeiras.com.br</div>
+    </div>
+    <div class="browser-screen">
+      <div class="screen-placeholder">
+        <div class="site-icon">MM</div>
+        <span class="site-label">Marion Madeiras</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Marion Madeiras</div>
+      <div class="card-desc">Presença digital para marca do segmento madeireiro com catálogo visual, posicionamento de autoridade e SEO estrutural.</div>
+      <div class="card-tags">
+        <span class="tag tag-o">Catálogo</span>
+        <span class="tag tag-g">SEO</span>
+        <span class="tag tag-pk">Varejo</span>
+      </div>
+      <a class="card-link" href="https://marionmadeiras.com.br/" target="_blank"><i class="ti ti-external-link"></i> Visitar site</a>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="browser-bar">
+      <div class="browser-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <div class="browser-url">lp-novaserie.vercel.app</div>
+    </div>
+    <div class="browser-screen">
+      <div class="screen-placeholder">
+        <div class="site-icon">NS</div>
+        <span class="site-label">Nova Série — Landing Page</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-title">Nova Série</div>
+      <div class="card-desc">Landing page de alta conversão com copy estratégico, hierarquia visual clara e elementos de gatilho para captação imediata.</div>
+      <div class="card-tags">
+        <span class="tag tag-p">Landing Page</span>
+        <span class="tag tag-g">Conversão</span>
+        <span class="tag tag-o">Copy</span>
+      </div>
+      <a class="card-link" href="https://lp-novaserie.vercel.app/" target="_blank"><i class="ti ti-external-link"></i> Visitar site</a>
+    </div>
+  </div>
+
+  <div class="project-card">
+    <div class="browser-bar">
+      <div class="browser-dots"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div></div>
+      <div class="browser-url">sl-trades-importaca-0.vercel.app</div>
+    </div>
+    <div class="browser-screen">
+      <div class="screen-placeholder">
+        <div class="site-icon">SL</div>
+        <span class="site-label">SL Trades Importação</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-title">SL Trades Importação</div>
+      <div class="card-desc">Site corporativo para empresa de importação com arquitetura de informação estratégica, geração de credibilidade e captação B2B.</div>
+      <div class="card-tags">
+        <span class="tag tag-g">Corporativo</span>
+        <span class="tag tag-pk">Importação</span>
+        <span class="tag tag-p">B2B</span>
+      </div>
+      <a class="card-link" href="https://sl-trades-importaca-0.vercel.app/" target="_blank"><i class="ti ti-external-link"></i> Visitar site</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="section-label">Por que a Convertido</div>
+  <div class="section-title">Tecnologia + criatividade integradas</div>
+  <div class="section-desc">Um site Convertido não é só bonito — ele é construído para crescer junto com o seu negócio nos 4 pilares da jornada digital.</div>
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="value-icon"><i class="ti ti-brand-figma" aria-hidden="true"></i></div>
+      <div class="value-title">Design estratégico</div>
+      <div class="value-desc">Cada pixel tem propósito. Identidade visual alinhada à sua marca e à intenção de conversão.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><i class="ti ti-bolt" aria-hidden="true"></i></div>
+      <div class="value-title">Performance técnica</div>
+      <div class="value-desc">Código limpo, carregamento rápido e otimizado para SEO desde a estrutura — sem atalhos.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><i class="ti ti-device-mobile" aria-hidden="true"></i></div>
+      <div class="value-title">100% responsivo</div>
+      <div class="value-desc">Experiência impecável em qualquer tela — do desktop ao celular, sem comprometer conversão.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div>
+      <div class="value-title">Foco em resultado</div>
+      <div class="value-desc">Estruturado para alimentar campanhas de tráfego pago, SEO e estratégias de e-commerce.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+      <div class="value-title">Discovery incluído</div>
+      <div class="value-desc">Todo projeto começa com planejamento estratégico — entendemos o negócio antes de criar.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><i class="ti ti-headset" aria-hidden="true"></i></div>
+      <div class="value-title">Suporte dedicado</div>
+      <div class="value-desc">Cultura de servir: acompanhamento próximo, revisões incluídas e entrega com excelência.</div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-block">
+  <div class="cta-badge"><i class="ti ti-sparkles" style="vertical-align:-2px;margin-right:4px" aria-hidden="true"></i> Oferta especial</div>
+  <h2>Seu próximo site começa aqui</h2>
+  <p>Investimento único. Site profissional, estratégico e pronto para converter — entregue pela equipe que já transformou a presença digital de marcas como essas.</p>
+  <div class="price-row">
+    <div class="price-big">
+      <div class="label">Investimento total</div>
+      <div class="value"><span class="cur">R$</span> 4.997</div>
+    </div>
+    <div class="price-sep"></div>
+    <div class="price-alt">
+      <div class="label">Parcelamento</div>
+      <div class="value">4× R$ 1.249,25</div>
+      <div class="note">sem juros no cartão de crédito</div>
+    </div>
+  </div>
+  <button class="btn-cta" onclick="sendPrompt('Tenho interesse no serviço de website da Convertido. Quero avançar com a proposta.')">
+    <i class="ti ti-rocket" aria-hidden="true"></i> Quero meu site agora
+  </button>
+</div>
+
+<div class="footer">
+  <p class="footer-txt">Convertido Marketing · Criatividade e tecnologia integradas · convertido.com.br</p>
+</div>
