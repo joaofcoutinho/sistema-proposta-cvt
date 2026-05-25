@@ -89,6 +89,56 @@ export async function saveClient(
   redirect("/admin/clients");
 }
 
+const HEX_COLOR = /^#[0-9A-Fa-f]{6}$/;
+
+/**
+ * Atualiza identidade visual (cores, modo, logo) de um cliente.
+ * Usado pelo editor de proposta pra permitir tweaks visuais sem
+ * abrir o formulário completo. Afeta todas as propostas do cliente.
+ */
+export async function updateClientBranding(
+  id: string,
+  input: {
+    primaryColor: string;
+    accentColor: string;
+    themeMode: "dark" | "light";
+    logoUrl: string | null;
+  },
+): Promise<{ ok: boolean; error?: string }> {
+  const session = await auth();
+  if (!session?.user) {
+    return { ok: false, error: "Não autenticado." };
+  }
+
+  if (!HEX_COLOR.test(input.primaryColor)) {
+    return { ok: false, error: "Cor primária inválida (use hex #RRGGBB)." };
+  }
+  if (!HEX_COLOR.test(input.accentColor)) {
+    return { ok: false, error: "Cor de destaque inválida (use hex #RRGGBB)." };
+  }
+  if (input.themeMode !== "dark" && input.themeMode !== "light") {
+    return { ok: false, error: "Modo de tema inválido." };
+  }
+
+  try {
+    await db
+      .update(clients)
+      .set({
+        primaryColor: input.primaryColor.toUpperCase(),
+        accentColor: input.accentColor.toUpperCase(),
+        themeMode: input.themeMode,
+        logoUrl: input.logoUrl,
+        updatedAt: new Date(),
+      })
+      .where(eq(clients.id, id));
+    revalidatePath("/admin/clients");
+    return { ok: true };
+  } catch (error) {
+    console.error("Falha ao atualizar identidade do cliente:", error);
+    return { ok: false, error: "Erro ao salvar. Tente novamente." };
+  }
+}
+
 /** Exclui um cliente (e, em cascata, suas propostas). */
 export async function deleteClient(
   id: string,

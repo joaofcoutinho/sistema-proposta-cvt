@@ -5,20 +5,30 @@ interface ProposalFooterProps {
   validity?: string;
 }
 
-/** Rodapé padrão das propostas. */
+/**
+ * Rodapé padrão das propostas — sempre em modo escuro pra a logo branca
+ * da Convertido ficar legível, independente do tema da proposta.
+ */
 export function ProposalFooter({
-  text = "Convertido Marketing · Criatividade e tecnologia integradas · convertido.com.br",
+  text = "Criatividade e tecnologia integradas · convertido.com.br",
   validity,
 }: ProposalFooterProps) {
   return (
-    <footer className="mt-6 border-t border-border px-6 py-10 text-center">
-      <p className="text-sm font-medium tracking-tight text-foreground/80">
-        Convertido
-      </p>
-      <p className="mt-1.5 text-xs text-muted-foreground">{text}</p>
-      {validity ? (
-        <p className="mt-1 text-xs text-muted-foreground/60">{validity}</p>
-      ) : null}
+    <footer className="dark mt-6 border-t border-border bg-background px-6 py-12 text-foreground">
+      <div className="flex flex-col items-center gap-4">
+        {/* eslint-disable-next-line @next/next/no-img-element -- logo estático */}
+        <img
+          src="/convertido-logo.png"
+          alt="Convertido"
+          className="h-10 w-auto object-contain"
+        />
+        <p className="text-xs text-muted-foreground">{text}</p>
+        {validity ? (
+          <p className="font-mono text-[11px] text-muted-foreground/60">
+            {validity}
+          </p>
+        ) : null}
+      </div>
     </footer>
   );
 }

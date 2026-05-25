@@ -28,7 +28,9 @@ export function ProposalTheme({
     <div
       className={cn(
         mode === "dark" ? "dark" : "theme-light",
-        "bg-background text-foreground",
+        // Toda a proposta usa Inter Tight (mesma fonte dos h1/h2),
+        // pra dar consistência editorial entre títulos e corpo.
+        "font-display bg-background text-foreground",
         className,
       )}
       style={
@@ -36,6 +38,9 @@ export function ProposalTheme({
           "--primary": primaryColor,
           "--accent": accentColor,
           "--ring": primaryColor,
+          // Sobrescreve --font-sans dentro da proposta também — afeta
+          // inputs, botões e elementos que usam font-sans por default.
+          "--font-sans": "var(--font-display)",
         } as CSSProperties
       }
     >

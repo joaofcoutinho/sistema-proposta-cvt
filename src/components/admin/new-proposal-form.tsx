@@ -75,82 +75,101 @@ export function NewProposalForm({ clients }: NewProposalFormProps) {
         </p>
       ) : null}
 
-      <fieldset className="flex flex-col gap-4 rounded-xl border border-border bg-card p-5">
-        <legend className="px-1 text-sm font-semibold">
-          Passo 1 de 2 · Cliente e tipo
-        </legend>
+      <section className="rounded-2xl border border-border bg-card p-6">
+        <header className="mb-5 flex flex-col gap-1">
+          <p className="eyebrow text-muted-foreground">Passo 1 de 2</p>
+          <h2 className="text-base font-semibold tracking-tight text-foreground">
+            Cliente e tipo de proposta
+          </h2>
+        </header>
 
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="clientId">Cliente</Label>
-          <Select name="clientId">
-            <SelectTrigger id="clientId">
-              <SelectValue placeholder="Selecione o cliente" />
-            </SelectTrigger>
-            <SelectContent>
-              {clients.map((client) => (
-                <SelectItem key={client.id} value={client.id}>
-                  {client.companyName}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {state.errors?.clientId ? (
-            <p className="text-xs text-destructive">{state.errors.clientId}</p>
-          ) : null}
-        </div>
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="clientId">Cliente</Label>
+            <Select name="clientId">
+              <SelectTrigger id="clientId">
+                <SelectValue placeholder="Selecione o cliente" />
+              </SelectTrigger>
+              <SelectContent>
+                {clients.map((client) => (
+                  <SelectItem key={client.id} value={client.id}>
+                    {client.companyName}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            {state.errors?.clientId ? (
+              <p className="text-xs text-destructive">
+                {state.errors.clientId}
+              </p>
+            ) : null}
+          </div>
 
-        <div className="flex flex-col gap-1.5">
-          <Label>Tipo de proposta</Label>
-          <div className="grid gap-2.5 sm:grid-cols-2">
-            {TYPE_OPTIONS.map((option) => {
-              const selected = option.value === type;
-              return (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => setType(option.value)}
-                  aria-pressed={selected}
-                  className={cn(
-                    "flex items-start gap-3 rounded-lg border p-3 text-left transition-colors",
-                    selected
-                      ? "border-primary bg-primary/10"
-                      : "border-border hover:border-primary/40",
-                  )}
-                >
-                  <option.icon
+          <div className="flex flex-col gap-2">
+            <Label>Tipo de proposta</Label>
+            <div className="grid gap-2.5 sm:grid-cols-2">
+              {TYPE_OPTIONS.map((option) => {
+                const selected = option.value === type;
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    onClick={() => setType(option.value)}
+                    aria-pressed={selected}
                     className={cn(
-                      "mt-0.5 size-5 shrink-0",
-                      selected ? "text-primary" : "text-muted-foreground",
+                      "group/type relative flex items-start gap-3 rounded-xl border p-3.5 text-left transition-all",
+                      selected
+                        ? "border-primary/50 bg-primary/[0.07] shadow-sm shadow-primary/10"
+                        : "border-border bg-surface hover:border-border-strong hover:bg-surface-2",
                     )}
-                  />
-                  <span className="flex flex-col">
-                    <span className="text-sm font-medium">{option.label}</span>
-                    <span className="text-xs text-muted-foreground">
-                      {option.description}
+                  >
+                    <span
+                      className={cn(
+                        "flex size-9 shrink-0 items-center justify-center rounded-lg transition-colors",
+                        selected
+                          ? "border border-primary/30 bg-primary/15 text-primary-soft"
+                          : "border border-border bg-surface-2 text-muted-foreground",
+                      )}
+                    >
+                      <option.icon className="size-4.5" stroke={1.75} />
                     </span>
-                  </span>
-                </button>
-              );
-            })}
+                    <span className="flex min-w-0 flex-col">
+                      <span className="text-sm font-semibold tracking-tight text-foreground">
+                        {option.label}
+                      </span>
+                      <span className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                        {option.description}
+                      </span>
+                    </span>
+                    {selected ? (
+                      <span
+                        aria-hidden
+                        className="absolute top-2.5 right-2.5 size-1.5 rounded-full bg-primary"
+                      />
+                    ) : null}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="title">
+              Título da proposta
+              <span className="text-destructive"> *</span>
+            </Label>
+            <Input
+              id="title"
+              name="title"
+              placeholder="Ex.: Proposta de Website — Cruzada"
+              aria-invalid={Boolean(state.errors?.title)}
+            />
+            {state.errors?.title ? (
+              <p className="text-xs text-destructive">{state.errors.title}</p>
+            ) : null}
           </div>
         </div>
-
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="title">
-            Título da proposta
-            <span className="text-destructive"> *</span>
-          </Label>
-          <Input
-            id="title"
-            name="title"
-            placeholder="Ex.: Proposta de Website — Cruzada"
-            aria-invalid={Boolean(state.errors?.title)}
-          />
-          {state.errors?.title ? (
-            <p className="text-xs text-destructive">{state.errors.title}</p>
-          ) : null}
-        </div>
-      </fieldset>
+      </section>
 
       <div className="flex items-center justify-end gap-3">
         <Button type="button" variant="ghost" asChild>

@@ -33,15 +33,18 @@ function isActive(href: string, pathname: string): boolean {
 
 function Brand() {
   return (
-    <div className="flex items-center gap-2.5 px-5 py-5">
-      <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/30">
-        C
-      </div>
+    <div className="flex items-center gap-3 px-6 py-6">
+      {/* eslint-disable-next-line @next/next/no-img-element -- logo estático */}
+      <img
+        src="/convertido-logo.png"
+        alt="Convertido"
+        className="size-9 shrink-0 object-contain"
+      />
       <div className="flex min-w-0 flex-col leading-tight">
-        <span className="text-sm font-semibold tracking-tight text-foreground">
+        <span className="wordmark text-[15px] text-foreground">
           Convertido
         </span>
-        <span className="text-[11px] text-muted-foreground">
+        <span className="mt-0.5 text-[11px] text-muted-foreground/80">
           Propostas comerciais
         </span>
       </div>
@@ -57,7 +60,10 @@ function NavList({
   onNavigate?: () => void;
 }) {
   return (
-    <nav className="flex flex-1 flex-col gap-1 px-3">
+    <nav className="flex flex-1 flex-col gap-0.5 px-4">
+      <p className="eyebrow mt-3 mb-2.5 px-3 text-muted-foreground/60">
+        Navegação
+      </p>
       {NAV_ITEMS.map((item) => {
         const active = isActive(item.href, pathname);
         return (
@@ -67,14 +73,23 @@ function NavList({
             onClick={onNavigate}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+              "relative flex items-center gap-3 rounded-lg px-3 py-2 text-[13.5px] font-medium transition-all",
               active
-                ? "bg-primary/12 text-foreground"
-                : "text-muted-foreground hover:bg-foreground/[0.06] hover:text-foreground",
+                ? "bg-foreground/[0.06] text-foreground"
+                : "text-muted-foreground hover:bg-foreground/[0.04] hover:text-foreground",
             )}
           >
+            {active ? (
+              <span
+                aria-hidden
+                className="absolute top-1/2 left-0 h-5 w-0.5 -translate-x-1 -translate-y-1/2 rounded-r-full bg-primary"
+              />
+            ) : null}
             <item.icon
-              className={cn("size-4.5", active && "text-primary-soft")}
+              className={cn(
+                "size-[18px] transition-colors",
+                active ? "text-foreground" : "text-muted-foreground/70",
+              )}
               stroke={1.75}
             />
             {item.label}
@@ -86,19 +101,25 @@ function NavList({
 }
 
 function SidebarFooter({ userEmail }: { userEmail: string }) {
+  const initial = userEmail ? userEmail.charAt(0).toUpperCase() : "?";
   return (
-    <div className="border-t border-border px-3 py-4">
+    <div className="border-t border-border px-4 py-4">
       {userEmail ? (
-        <p className="truncate px-3 pb-2 text-xs text-muted-foreground">
-          {userEmail}
-        </p>
+        <div className="mb-2 flex items-center gap-2.5 rounded-lg px-2 py-2">
+          <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-surface-2 text-[11px] font-semibold text-foreground/80">
+            {initial}
+          </span>
+          <span className="truncate text-[12px] text-muted-foreground">
+            {userEmail}
+          </span>
+        </div>
       ) : null}
       <form action={signOutAction}>
         <button
           type="submit"
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-[13.5px] font-medium text-muted-foreground transition-colors hover:bg-foreground/[0.04] hover:text-foreground"
         >
-          <IconLogout className="size-4.5" stroke={1.75} />
+          <IconLogout className="size-[18px]" stroke={1.75} />
           Sair
         </button>
       </form>
@@ -113,14 +134,14 @@ export function AdminSidebar({ userEmail }: { userEmail: string }) {
   return (
     <>
       {/* Sidebar fixa — desktop */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-border bg-sidebar lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-border bg-sidebar lg:flex">
         <Brand />
         <NavList pathname={pathname} />
         <SidebarFooter userEmail={userEmail} />
       </aside>
 
       {/* Topbar — mobile */}
-      <div className="flex items-center gap-3 border-b border-border bg-sidebar px-4 py-3 lg:hidden">
+      <div className="flex items-center gap-3 border-b border-border bg-sidebar/90 px-4 py-3 backdrop-blur-xl lg:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger
             aria-label="Abrir menu"
@@ -128,7 +149,7 @@ export function AdminSidebar({ userEmail }: { userEmail: string }) {
           >
             <IconMenu2 className="size-5" />
           </SheetTrigger>
-          <SheetContent side="left" className="w-60 bg-sidebar p-0">
+          <SheetContent side="left" className="w-64 bg-sidebar p-0">
             <SheetTitle className="sr-only">Menu do painel</SheetTitle>
             <div className="flex h-full flex-col">
               <Brand />
@@ -138,10 +159,13 @@ export function AdminSidebar({ userEmail }: { userEmail: string }) {
           </SheetContent>
         </Sheet>
         <span className="flex items-center gap-2">
-          <span className="flex size-7 items-center justify-center rounded-lg bg-primary text-xs font-semibold text-primary-foreground">
-            C
-          </span>
-          <span className="text-sm font-semibold tracking-tight text-foreground">
+          {/* eslint-disable-next-line @next/next/no-img-element -- logo estático */}
+          <img
+            src="/convertido-logo.png"
+            alt="Convertido"
+            className="size-7 shrink-0 object-contain"
+          />
+          <span className="wordmark text-[14px] text-foreground">
             Convertido
           </span>
         </span>

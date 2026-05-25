@@ -150,8 +150,14 @@ export function ClientForm({ client }: { client?: Client }) {
       ) : null}
 
       {/* Dados da empresa */}
-      <fieldset className="flex flex-col gap-4 rounded-xl border border-border bg-card p-5">
-        <legend className="px-1 text-sm font-semibold">Empresa</legend>
+      <section className="rounded-2xl border border-border bg-card p-6">
+        <header className="mb-5 flex flex-col gap-1">
+          <p className="eyebrow text-muted-foreground">01 · Empresa</p>
+          <h2 className="text-base font-semibold tracking-tight text-foreground">
+            Dados do cliente
+          </h2>
+        </header>
+        <div className="flex flex-col gap-4">
         <Field
           label="Nome da empresa"
           name="companyName"
@@ -191,13 +197,19 @@ export function ClientForm({ client }: { client?: Client }) {
             placeholder="(11) 99999-9999"
           />
         </div>
-      </fieldset>
+        </div>
+      </section>
 
       {/* Logo */}
-      <fieldset className="flex flex-col gap-3 rounded-xl border border-border bg-card p-5">
-        <legend className="px-1 text-sm font-semibold">Logo</legend>
-        <div className="flex items-center gap-4">
-          <div className="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-surface">
+      <section className="rounded-2xl border border-border bg-card p-6">
+        <header className="mb-5 flex flex-col gap-1">
+          <p className="eyebrow text-muted-foreground">02 · Logo</p>
+          <h2 className="text-base font-semibold tracking-tight text-foreground">
+            Marca do cliente
+          </h2>
+        </header>
+        <div className="flex items-start gap-5">
+          <div className="flex size-24 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-surface">
             {logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element -- preview de logo
               <img
@@ -206,11 +218,11 @@ export function ClientForm({ client }: { client?: Client }) {
                 className="size-full object-contain"
               />
             ) : (
-              <span className="text-xs text-muted-foreground">Sem logo</span>
+              <span className="text-xs text-muted-foreground/70">Sem logo</span>
             )}
           </div>
-          <div className="flex flex-col gap-2">
-            <label className="inline-flex w-fit cursor-pointer items-center gap-2 rounded-md border border-border bg-surface px-3 py-2 text-sm font-medium transition-colors hover:bg-foreground/5">
+          <div className="flex flex-col gap-2.5">
+            <label className="inline-flex w-fit cursor-pointer items-center gap-2 rounded-lg border border-border-strong bg-surface px-3.5 py-2 text-sm font-medium transition-colors hover:bg-surface-2">
               {uploading ? (
                 <IconLoader2 className="size-4 animate-spin" />
               ) : (
@@ -229,7 +241,7 @@ export function ClientForm({ client }: { client?: Client }) {
               <button
                 type="button"
                 onClick={() => setLogoUrl("")}
-                className="inline-flex w-fit items-center gap-1 text-xs text-muted-foreground hover:text-destructive"
+                className="inline-flex w-fit items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-destructive"
               >
                 <IconX className="size-3.5" /> Remover logo
               </button>
@@ -243,13 +255,18 @@ export function ClientForm({ client }: { client?: Client }) {
             ) : null}
           </div>
         </div>
-      </fieldset>
+      </section>
 
       {/* Identidade visual */}
-      <fieldset className="flex flex-col gap-4 rounded-xl border border-border bg-card p-5">
-        <legend className="px-1 text-sm font-semibold">
-          Identidade visual
-        </legend>
+      <section className="rounded-2xl border border-border bg-card p-6">
+        <header className="mb-5 flex flex-col gap-1">
+          <p className="eyebrow text-muted-foreground">
+            03 · Identidade visual
+          </p>
+          <h2 className="text-base font-semibold tracking-tight text-foreground">
+            Cores e tema da proposta
+          </h2>
+        </header>
         <div className="grid gap-4 sm:grid-cols-3">
           <ColorField
             label="Cor primária"
@@ -286,21 +303,25 @@ export function ClientForm({ client }: { client?: Client }) {
             ) : null}
           </div>
         </div>
-        <div
-          className="flex items-center gap-2 rounded-lg border border-border p-3"
-          style={{ backgroundColor: "var(--surface)" }}
-        >
-          <span className="text-xs text-muted-foreground">Prévia:</span>
-          <span
-            className="size-6 rounded-md border border-white/10"
-            style={{ backgroundColor: primaryColor }}
-          />
-          <span
-            className="size-6 rounded-md border border-white/10"
-            style={{ backgroundColor: accentColor }}
-          />
+        <div className="mt-5 flex items-center gap-3 rounded-xl border border-border bg-surface px-4 py-3">
+          <span className="eyebrow text-muted-foreground">Prévia</span>
+          <div className="flex flex-1 items-center gap-2">
+            <span
+              className="size-7 rounded-lg border border-white/10 shadow-sm"
+              style={{ backgroundColor: primaryColor }}
+              title={primaryColor}
+            />
+            <span
+              className="size-7 rounded-lg border border-white/10 shadow-sm"
+              style={{ backgroundColor: accentColor }}
+              title={accentColor}
+            />
+            <span className="ml-1 font-mono text-xs text-muted-foreground">
+              {primaryColor} · {accentColor}
+            </span>
+          </div>
         </div>
-      </fieldset>
+      </section>
 
       <div className="flex items-center justify-end gap-3">
         <Button type="button" variant="ghost" asChild>

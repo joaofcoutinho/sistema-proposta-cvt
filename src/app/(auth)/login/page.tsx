@@ -8,31 +8,38 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <main className="relative flex min-h-svh items-center justify-center overflow-hidden px-6 py-12">
-      {/* glow ambiente */}
+    <main className="relative flex min-h-svh items-center justify-center overflow-hidden px-6 py-16">
+      {/* Atmosfera ambiente */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[640px] max-w-[90vw] -translate-x-1/2 rounded-full bg-primary/12 blur-[130px]"
+        className="pointer-events-none absolute inset-0 [background-image:radial-gradient(closest-side_at_50%_0%,color-mix(in_oklab,var(--primary),transparent_85%)_0%,transparent_60%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,var(--foreground)_1px,transparent_1px),linear-gradient(to_bottom,var(--foreground)_1px,transparent_1px)] [background-size:64px_64px]"
       />
 
-      <div className="relative w-full max-w-sm">
-        <div className="mb-7 flex flex-col items-center text-center">
-          <div className="flex size-11 items-center justify-center rounded-xl bg-primary text-base font-semibold text-primary-foreground shadow-lg shadow-primary/30">
-            C
-          </div>
-          <h1 className="mt-4 text-xl font-semibold tracking-tight text-foreground">
-            Painel de propostas
+      <div className="relative w-full max-w-[400px]">
+        <div className="mb-9 flex flex-col items-center text-center">
+          {/* eslint-disable-next-line @next/next/no-img-element -- logo estático */}
+          <img
+            src="/convertido-logo.png"
+            alt="Convertido"
+            className="size-14 object-contain"
+          />
+          <h1 className="font-display mt-6 text-[1.75rem] font-semibold tracking-[-0.025em] text-foreground">
+            Bem-vindo de volta
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Entre com suas credenciais de administrador.
+          <p className="mt-2 text-[15px] text-muted-foreground">
+            Entre com suas credenciais para acessar o painel.
           </p>
         </div>
 
-        <div className="rounded-2xl border border-border bg-card p-6 ring-1 ring-foreground/[0.04]">
+        <div className="surface-card rounded-2xl border border-border p-7 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.5)]">
           <LoginForm />
         </div>
 
-        <p className="mt-6 text-center text-xs text-muted-foreground/70">
+        <p className="mt-7 text-center text-xs text-muted-foreground/60">
           Convertido Marketing · Sistema interno
         </p>
       </div>

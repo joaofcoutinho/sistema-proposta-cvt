@@ -4,12 +4,16 @@ import {
   Head,
   Heading,
   Html,
+  Img,
   Link,
   Preview,
+  Section,
   Text,
 } from "@react-email/components";
 
 import * as s from "./styles";
+
+const LOGO_URL = `${process.env.NEXT_PUBLIC_PUBLIC_URL ?? "http://localhost:3000"}/convertido-logo.png`;
 
 interface ProposalAcceptedEmailProps {
   recipient: "admin" | "client";
@@ -40,7 +44,16 @@ export function ProposalAcceptedEmail({
       <Preview>{`Proposta "${proposalTitle}" aceita`}</Preview>
       <Body style={s.body}>
         <Container style={s.container}>
-          <Text style={s.brand}>CONVERTIDO</Text>
+          <Section style={s.brandRow}>
+            <Img
+              src={LOGO_URL}
+              alt="Convertido"
+              width={32}
+              height={32}
+              style={s.brandLogo}
+            />
+            <Text style={s.brandText}>Convertido</Text>
+          </Section>
           <Heading style={s.heading}>
             {isAdmin ? "Proposta aceita! ✅" : "Aceite confirmado ✅"}
           </Heading>

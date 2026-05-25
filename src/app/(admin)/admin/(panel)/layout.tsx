@@ -14,7 +14,7 @@ export default async function PanelLayout({
   return (
     <div className="min-h-svh">
       <AdminSidebar userEmail={session?.user?.email ?? ""} />
-      <main className="lg:pl-60">{children}</main>
+      <main className="lg:pl-64">{children}</main>
       <Toaster richColors position="top-right" />
     </div>
   );

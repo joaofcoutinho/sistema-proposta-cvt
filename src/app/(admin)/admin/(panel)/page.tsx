@@ -29,21 +29,21 @@ function MetricCard({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-3.5 rounded-2xl border border-border bg-card p-5 transition-colors hover:border-border-strong">
+    <div className="surface-card group relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-border p-6 transition-all hover:border-border-strong hover:-translate-y-0.5">
       <div className="flex items-start justify-between gap-2">
-        <span className="text-xs font-medium text-muted-foreground">
+        <span className="text-[13px] font-medium text-muted-foreground">
           {label}
         </span>
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary-soft">
+        <span className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-2 text-foreground/70 transition-colors group-hover:text-foreground">
           {icon}
         </span>
       </div>
       <div>
-        <span className="font-mono text-[1.75rem] font-semibold tracking-tight text-foreground">
+        <span className="font-display text-[2.25rem] leading-none font-semibold tracking-[-0.03em] text-foreground">
           {value}
         </span>
         {hint ? (
-          <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+          <p className="mt-2 text-[12.5px] leading-relaxed text-muted-foreground">
             {hint}
           </p>
         ) : null}
@@ -65,7 +65,7 @@ export default async function DashboardPage() {
   const data = await getDashboardData();
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-8">
+    <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-10 sm:px-10 sm:py-12">
       <PageHeader
         title="Dashboard"
         description="Visão geral das propostas comerciais."
@@ -111,19 +111,22 @@ export default async function DashboardPage() {
       </div>
 
       {/* Status */}
-      <section className="rounded-2xl border border-border bg-card p-6">
-        <h2 className="text-base font-semibold tracking-tight text-foreground">
-          Propostas por status
-        </h2>
-        <div className="mt-4 flex flex-wrap gap-2.5">
+      <section className="surface-card rounded-2xl border border-border p-7">
+        <div className="mb-5 flex flex-col gap-0.5">
+          <p className="eyebrow text-muted-foreground/70">Funil</p>
+          <h2 className="font-display text-[1.25rem] font-semibold tracking-[-0.02em] text-foreground">
+            Propostas por status
+          </h2>
+        </div>
+        <div className="flex flex-wrap gap-2.5">
           {PROPOSAL_STATUSES.map((status) => (
             <Link
               key={status}
               href={`/admin/proposals?status=${status}`}
-              className="flex items-center gap-2.5 rounded-xl border border-border bg-surface px-3 py-2 transition-colors hover:border-border-strong hover:bg-surface-2"
+              className="group flex items-center gap-3 rounded-xl border border-border bg-surface px-3.5 py-2.5 transition-all hover:border-border-strong hover:bg-surface-2"
             >
               <ProposalStatusBadge status={status} />
-              <span className="font-mono text-sm font-semibold text-foreground">
+              <span className="font-mono text-[15px] font-semibold tabular-nums text-foreground">
                 {data.statusCounts[status]}
               </span>
             </Link>
@@ -132,10 +135,13 @@ export default async function DashboardPage() {
       </section>
 
       {/* Atividade recente */}
-      <section className="rounded-2xl border border-border bg-card p-6">
-        <h2 className="text-base font-semibold tracking-tight text-foreground">
-          Atividade recente
-        </h2>
+      <section className="surface-card rounded-2xl border border-border p-7">
+        <div className="mb-5 flex flex-col gap-0.5">
+          <p className="eyebrow text-muted-foreground/70">Últimos eventos</p>
+          <h2 className="font-display text-[1.25rem] font-semibold tracking-[-0.02em] text-foreground">
+            Atividade recente
+          </h2>
+        </div>
         {data.activity.length === 0 ? (
           <p className="mt-4 text-sm text-muted-foreground">
             Nenhuma atividade ainda. Envie uma proposta para começar.

@@ -43,7 +43,7 @@ export function ClientsTable({ clients }: { clients: Client[] }) {
             <TableRow key={client.id}>
               <TableCell>
                 <div className="flex items-center gap-3">
-                  <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md border border-border bg-surface text-xs font-semibold">
+                  <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-surface text-[11px] font-semibold tracking-tight text-muted-foreground">
                     {client.logoUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element -- logo do cliente
                       <img
@@ -55,7 +55,9 @@ export function ClientsTable({ clients }: { clients: Client[] }) {
                       initials(client.companyName)
                     )}
                   </div>
-                  <span className="font-medium">{client.companyName}</span>
+                  <span className="font-medium tracking-tight text-foreground">
+                    {client.companyName}
+                  </span>
                 </div>
               </TableCell>
               <TableCell>
@@ -84,17 +86,22 @@ export function ClientsTable({ clients }: { clients: Client[] }) {
               </TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
-                  <span
-                    className="size-4 rounded border border-white/10"
-                    style={{ backgroundColor: client.primaryColor }}
-                    title={`Primária ${client.primaryColor}`}
-                  />
-                  <span
-                    className="size-4 rounded border border-white/10"
-                    style={{ backgroundColor: client.accentColor }}
-                    title={`Destaque ${client.accentColor}`}
-                  />
-                  <Badge variant="secondary" className="text-[10px]">
+                  <div className="flex -space-x-1">
+                    <span
+                      className="size-5 rounded-md border border-white/15 shadow-sm"
+                      style={{ backgroundColor: client.primaryColor }}
+                      title={`Primária ${client.primaryColor}`}
+                    />
+                    <span
+                      className="size-5 rounded-md border border-white/15 shadow-sm"
+                      style={{ backgroundColor: client.accentColor }}
+                      title={`Destaque ${client.accentColor}`}
+                    />
+                  </div>
+                  <Badge
+                    variant="secondary"
+                    className="font-mono text-[10px] tracking-wide"
+                  >
                     {client.themeMode === "dark" ? "Escuro" : "Claro"}
                   </Badge>
                 </div>

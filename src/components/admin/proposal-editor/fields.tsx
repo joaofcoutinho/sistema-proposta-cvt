@@ -20,21 +20,30 @@ import { ICON_NAMES } from "@/components/proposals/shared/proposal-icon";
 export function FieldCard({
   title,
   description,
+  eyebrow,
   children,
 }: {
   title: string;
   description?: string;
+  eyebrow?: string;
   children: ReactNode;
 }) {
   return (
-    <section className="flex flex-col gap-4 rounded-xl border border-border bg-card p-5">
-      <div>
-        <h3 className="text-sm font-semibold">{title}</h3>
-        {description ? (
-          <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>
+    <section className="rounded-2xl border border-border bg-card p-5">
+      <header className="mb-4 flex flex-col gap-1">
+        {eyebrow ? (
+          <p className="eyebrow text-muted-foreground">{eyebrow}</p>
         ) : null}
-      </div>
-      {children}
+        <h3 className="text-sm font-semibold tracking-tight text-foreground">
+          {title}
+        </h3>
+        {description ? (
+          <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+            {description}
+          </p>
+        ) : null}
+      </header>
+      <div className="flex flex-col gap-4">{children}</div>
     </section>
   );
 }
@@ -181,20 +190,34 @@ export function ArrayField({
 
   return (
     <div className="flex flex-col gap-3">
-      <h4 className="text-sm font-medium">{label}</h4>
+      <div className="flex items-center justify-between">
+        <h4 className="text-sm font-semibold tracking-tight text-foreground">
+          {label}
+        </h4>
+        {fields.length > 0 ? (
+          <span className="font-mono text-[11px] text-muted-foreground">
+            {fields.length} {fields.length === 1 ? "item" : "itens"}
+          </span>
+        ) : null}
+      </div>
 
       {fields.length === 0 ? (
-        <p className="text-xs text-muted-foreground">Nenhum item ainda.</p>
+        <p className="rounded-lg border border-dashed border-border bg-surface/40 px-4 py-3 text-xs text-muted-foreground">
+          Nenhum {itemNoun.toLowerCase()} ainda.
+        </p>
       ) : null}
 
       {fields.map((fieldItem, index) => (
         <div
           key={fieldItem.id}
-          className="flex flex-col gap-3 rounded-lg border border-border bg-surface p-3.5"
+          className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-border-strong"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-muted-foreground">
-              {itemNoun} {index + 1}
+            <span className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+              <span className="font-mono text-foreground/40">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              {itemNoun}
             </span>
             <button
               type="button"
@@ -212,7 +235,7 @@ export function ArrayField({
       <button
         type="button"
         onClick={() => append(newItem())}
-        className="inline-flex w-fit items-center gap-1.5 rounded-md border border-dashed border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/45 hover:text-foreground"
+        className="inline-flex w-fit items-center gap-1.5 rounded-lg border border-border-strong bg-surface px-3 py-1.5 text-xs font-medium text-foreground/80 transition-colors hover:border-primary/40 hover:bg-surface-2 hover:text-foreground"
       >
         <IconPlus className="size-3.5" />
         {addLabel}

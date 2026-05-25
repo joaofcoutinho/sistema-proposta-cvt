@@ -27,6 +27,28 @@ export const brand: CSSProperties = {
   margin: "0 0 24px",
 };
 
+export const brandRow: CSSProperties = {
+  alignItems: "center",
+  display: "flex",
+  gap: "10px",
+  margin: "0 0 24px",
+};
+
+export const brandLogo: CSSProperties = {
+  display: "block",
+  height: "32px",
+  width: "32px",
+  objectFit: "contain",
+};
+
+export const brandText: CSSProperties = {
+  color: "#F0EEF8",
+  fontSize: "15px",
+  fontWeight: 700,
+  letterSpacing: "-0.02em",
+  margin: 0,
+};
+
 export const heading: CSSProperties = {
   color: "#F0EEF8",
   fontSize: "22px",
