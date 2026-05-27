@@ -60,10 +60,7 @@ function NavList({
   onNavigate?: () => void;
 }) {
   return (
-    <nav className="flex flex-1 flex-col gap-0.5 px-4">
-      <p className="eyebrow mt-3 mb-2.5 px-3 text-muted-foreground/60">
-        Navegação
-      </p>
+    <nav className="flex flex-1 flex-col gap-0.5 px-4 pt-2">
       {NAV_ITEMS.map((item) => {
         const active = isActive(item.href, pathname);
         return (

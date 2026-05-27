@@ -6,7 +6,6 @@ const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
-  axes: ["opsz"],
 });
 
 const interTight = Inter_Tight({

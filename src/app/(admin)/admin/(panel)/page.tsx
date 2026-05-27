@@ -29,9 +29,9 @@ function MetricCard({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="surface-card group relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-border p-6 transition-all hover:border-border-strong hover:-translate-y-0.5">
+    <div className="group relative flex flex-col gap-4 overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all hover:border-border-strong hover:-translate-y-0.5">
       <div className="flex items-start justify-between gap-2">
-        <span className="text-[13px] font-medium text-muted-foreground">
+        <span className="text-sm font-medium text-muted-foreground">
           {label}
         </span>
         <span className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-border bg-surface-2 text-foreground/70 transition-colors group-hover:text-foreground">
@@ -39,11 +39,11 @@ function MetricCard({
         </span>
       </div>
       <div>
-        <span className="font-display text-[2.25rem] leading-none font-semibold tracking-[-0.03em] text-foreground">
+        <span className="text-[2rem] leading-none font-semibold tracking-tight tabular-nums text-foreground">
           {value}
         </span>
         {hint ? (
-          <p className="mt-2 text-[12.5px] leading-relaxed text-muted-foreground">
+          <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground">
             {hint}
           </p>
         ) : null}
@@ -111,13 +111,10 @@ export default async function DashboardPage() {
       </div>
 
       {/* Status */}
-      <section className="surface-card rounded-2xl border border-border p-7">
-        <div className="mb-5 flex flex-col gap-0.5">
-          <p className="eyebrow text-muted-foreground/70">Funil</p>
-          <h2 className="font-display text-[1.25rem] font-semibold tracking-[-0.02em] text-foreground">
-            Propostas por status
-          </h2>
-        </div>
+      <section className="rounded-2xl border border-border bg-card p-7">
+        <h2 className="mb-5 text-base font-semibold tracking-tight text-foreground">
+          Propostas por status
+        </h2>
         <div className="flex flex-wrap gap-2.5">
           {PROPOSAL_STATUSES.map((status) => (
             <Link
@@ -126,7 +123,7 @@ export default async function DashboardPage() {
               className="group flex items-center gap-3 rounded-xl border border-border bg-surface px-3.5 py-2.5 transition-all hover:border-border-strong hover:bg-surface-2"
             >
               <ProposalStatusBadge status={status} />
-              <span className="font-mono text-[15px] font-semibold tabular-nums text-foreground">
+              <span className="text-[15px] font-semibold tabular-nums text-foreground">
                 {data.statusCounts[status]}
               </span>
             </Link>
@@ -135,19 +132,16 @@ export default async function DashboardPage() {
       </section>
 
       {/* Atividade recente */}
-      <section className="surface-card rounded-2xl border border-border p-7">
-        <div className="mb-5 flex flex-col gap-0.5">
-          <p className="eyebrow text-muted-foreground/70">Últimos eventos</p>
-          <h2 className="font-display text-[1.25rem] font-semibold tracking-[-0.02em] text-foreground">
-            Atividade recente
-          </h2>
-        </div>
+      <section className="rounded-2xl border border-border bg-card p-7">
+        <h2 className="mb-5 text-base font-semibold tracking-tight text-foreground">
+          Atividade recente
+        </h2>
         {data.activity.length === 0 ? (
           <p className="mt-4 text-sm text-muted-foreground">
             Nenhuma atividade ainda. Envie uma proposta para começar.
           </p>
         ) : (
-          <ul className="mt-4 flex flex-col gap-1">
+          <ul className="flex flex-col gap-1">
             {data.activity.map((item, index) => (
               <li
                 key={`${item.kind}-${index}-${item.at.getTime()}`}
@@ -185,7 +179,7 @@ export default async function DashboardPage() {
                     · {item.companyName}
                   </span>
                 </span>
-                <span className="shrink-0 font-mono text-xs text-muted-foreground">
+                <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
                   {formatActivityDate(item.at)}
                 </span>
               </li>

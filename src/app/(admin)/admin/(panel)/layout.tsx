@@ -12,7 +12,7 @@ export default async function PanelLayout({
   const session = await auth();
 
   return (
-    <div className="min-h-svh">
+    <div className="font-display min-h-svh">
       <AdminSidebar userEmail={session?.user?.email ?? ""} />
       <main className="lg:pl-64">{children}</main>
       <Toaster richColors position="top-right" />

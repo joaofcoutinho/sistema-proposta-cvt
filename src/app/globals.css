@@ -156,33 +156,23 @@
 
   body {
     @apply bg-background text-foreground;
-    /*
-     * Tuning Inter para um "feel" próximo de SF Pro:
-     * - cv11: 'a' single-storey
-     * - ss03: pontuação alinhada
-     * - cv02: 'g' alternativo (similar SF)
-     * - cv03/04: ângulos refinados em 'r', 't'
-     */
+    /* Inter no shape padrão — sem alternates pra evitar contraste
+       entre títulos e corpo no painel. */
     font-feature-settings:
       "liga" 1,
-      "calt" 1,
-      "cv11" 1,
-      "ss03" 1,
-      "cv02" 1,
-      "cv03" 1,
-      "cv04" 1;
-    letter-spacing: -0.005em;
+      "calt" 1;
   }
 
-  /* Títulos usam Inter Tight — mais condensado, ar de display Apple. */
+  /*
+   * Headings ficam com a fonte do escopo (Inter no painel, Inter Tight
+   * dentro de ProposalTheme — que aplica font-display + --font-sans).
+   * Aplicamos só tracking pra dar polimento sem trocar a família.
+   */
   h1,
   h2,
   h3,
   h4 {
-    font-family:
-      var(--font-display), var(--font-sans), ui-sans-serif, system-ui,
-      sans-serif;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.022em;
   }
 
   .font-mono {
