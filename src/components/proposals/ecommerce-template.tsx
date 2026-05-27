@@ -59,14 +59,14 @@ export function EcommerceTemplate({
         </div>
       </ProposalHero>
 
-      <div className="mx-auto max-w-3xl px-6">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
         {/* 4S */}
-        <section className="border-t border-border py-11">
+        <section className="border-t border-border py-9 sm:py-11">
           <SectionHeading
             label="Metodologia"
             title="4S aplicados ao seu e-commerce"
           />
-          <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-6 grid gap-3 sm:mt-7 sm:grid-cols-2 lg:grid-cols-4">
             {content.fourS.map((item, index) => (
               <div
                 key={item.title}
@@ -90,23 +90,23 @@ export function EcommerceTemplate({
         </section>
 
         {/* Roadmap */}
-        <section className="border-t border-border py-11">
+        <section className="border-t border-border py-9 sm:py-11">
           <SectionHeading
             label="Roadmap"
             title={`Sprint de ${content.sprintDays} dias — ${content.roadmap.length} fases`}
           />
-          <div className="mt-7">
+          <div className="mt-6 sm:mt-7">
             <Phases phases={content.roadmap} layout="rows" />
           </div>
         </section>
 
         {/* Escopo */}
-        <section className="border-t border-border py-11">
+        <section className="border-t border-border py-9 sm:py-11">
           <SectionHeading
             label="Escopo incluído"
             title="O que está dentro da proposta"
           />
-          <div className="mt-7">
+          <div className="mt-6 sm:mt-7">
             <Checklist items={content.scopeIncluded} />
             {content.scopeExcluded.length > 0 ? (
               <ExcludedBox items={content.scopeExcluded} />
@@ -115,12 +115,12 @@ export function EcommerceTemplate({
         </section>
 
         {/* Pagamento */}
-        <section className="border-t border-border py-11">
+        <section className="border-t border-border py-9 sm:py-11">
           <SectionHeading
             label="Investimento"
             title="Condições de pagamento"
           />
-          <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-6 grid gap-3 sm:mt-7 sm:grid-cols-2 lg:grid-cols-4">
             {content.paymentConditions.map((installment) => (
               <div
                 key={installment.label}

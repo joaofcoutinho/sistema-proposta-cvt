@@ -86,11 +86,11 @@ export function AcceptForm({
   }
 
   return (
-    <section id="aceite" className="px-6 py-16 text-center">
-      <h2 className="text-xl font-semibold tracking-tight text-balance text-foreground sm:text-2xl">
+    <section id="aceite" className="px-5 py-12 text-center sm:px-6 sm:py-16">
+      <h2 className="text-[1.25rem] font-semibold tracking-tight text-balance text-foreground sm:text-2xl">
         {heading}
       </h2>
-      <p className="mx-auto mt-2.5 max-w-md text-sm leading-relaxed text-pretty text-muted-foreground">
+      <p className="mx-auto mt-2.5 max-w-md text-[13.5px] leading-relaxed text-pretty text-muted-foreground sm:text-sm">
         {subtitle}
       </p>
 
@@ -125,7 +125,7 @@ export function AcceptForm({
         <button
           type="submit"
           disabled={submitting || !name.trim()}
-          className="mt-2 inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none"
+          className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-8 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none sm:w-auto"
         >
           <ProposalIcon name="IconCheck" className="size-4" stroke={2.5} />
           {submitting ? "Registrando..." : "Aceitar proposta"}

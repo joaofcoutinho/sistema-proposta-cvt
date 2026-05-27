@@ -27,7 +27,7 @@ function resolveAction(action: CtaAction): {
 }
 
 const baseButton =
-  "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition-all duration-200 active:translate-y-px";
+  "inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-200 active:translate-y-px sm:w-auto sm:px-6";
 
 interface CtaActionsProps {
   actions: CtaAction[];
@@ -37,7 +37,12 @@ interface CtaActionsProps {
 /** Renderiza a lista de botões de CTA (o primeiro recebe destaque). */
 export function CtaActions({ actions, className }: CtaActionsProps) {
   return (
-    <div className={cn("flex flex-wrap justify-center gap-3", className)}>
+    <div
+      className={cn(
+        "flex w-full flex-col items-stretch gap-2.5 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3",
+        className,
+      )}
+    >
       {actions.map((action, index) => {
         const { href, external } = resolveAction(action);
         const primary = index === 0;
@@ -81,48 +86,48 @@ interface ProposalCtaProps {
 /** Bloco de chamada para ação no fim da proposta. */
 export function ProposalCta({ content, badge, pricing }: ProposalCtaProps) {
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-border-strong bg-surface px-6 py-10 text-center sm:px-12 sm:py-14">
+    <div className="relative overflow-hidden rounded-2xl border border-border-strong bg-surface px-5 py-8 text-center sm:rounded-3xl sm:px-12 sm:py-14">
       {/* glow sutil no topo */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 -top-28 mx-auto h-56 w-[420px] max-w-[80%] rounded-full bg-primary/20 blur-[100px]"
+        className="pointer-events-none absolute inset-x-0 -top-24 mx-auto h-44 w-[320px] max-w-[80%] rounded-full bg-primary/20 blur-[80px] sm:-top-28 sm:h-56 sm:w-[420px] sm:blur-[100px]"
       />
 
       <div className="relative mx-auto flex max-w-xl flex-col items-center">
         {badge ? (
-          <span className="eyebrow mb-4 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-1 text-emerald-300">
-            <ProposalIcon name="IconSparkles" className="size-3.5" />
+          <span className="eyebrow mb-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-2.5 py-1 text-emerald-300 sm:mb-4 sm:px-3">
+            <ProposalIcon name="IconSparkles" className="size-3" />
             {badge}
           </span>
         ) : null}
 
-        <h2 className="text-2xl font-semibold tracking-tight text-balance text-foreground sm:text-3xl">
+        <h2 className="text-[1.5rem] font-semibold tracking-tight text-balance text-foreground sm:text-3xl">
           {content.title}
         </h2>
         {content.subtitle ? (
-          <p className="mt-3 text-sm leading-relaxed text-pretty text-muted-foreground sm:text-base">
+          <p className="mt-2.5 text-[13.5px] leading-relaxed text-pretty text-muted-foreground sm:mt-3 sm:text-base">
             {content.subtitle}
           </p>
         ) : null}
 
         {pricing ? (
-          <div className="my-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-4">
-            <div className="text-left">
+          <div className="my-6 flex w-full flex-col items-center gap-4 sm:my-7 sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-7 sm:gap-y-4">
+            <div className="text-center sm:text-left">
               <p className="eyebrow text-muted-foreground">
                 {pricing.label ?? "Investimento total"}
               </p>
-              <p className="mt-1 font-mono text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              <p className="mt-1 text-[1.75rem] font-semibold tracking-tight text-foreground sm:text-4xl">
                 {pricing.amount}
               </p>
             </div>
             {pricing.installments ? (
               <>
                 <span className="hidden h-12 w-px bg-border-strong sm:block" />
-                <div className="text-left">
+                <div className="text-center sm:text-left">
                   <p className="eyebrow text-muted-foreground">
                     Parcelamento
                   </p>
-                  <p className="mt-1 font-mono text-xl font-semibold text-primary-soft">
+                  <p className="mt-1 text-lg font-semibold text-primary-soft sm:text-xl">
                     {pricing.installments}
                   </p>
                   {pricing.note ? (
@@ -136,7 +141,10 @@ export function ProposalCta({ content, badge, pricing }: ProposalCtaProps) {
           </div>
         ) : null}
 
-        <CtaActions actions={content.actions} className={pricing ? "" : "mt-7"} />
+        <CtaActions
+          actions={content.actions}
+          className={pricing ? "" : "mt-6 sm:mt-7"}
+        />
       </div>
     </div>
   );

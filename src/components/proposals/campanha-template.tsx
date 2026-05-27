@@ -25,7 +25,7 @@ function FeeCard({
   return (
     <div
       className={cn(
-        "rounded-2xl border p-5",
+        "rounded-2xl border p-4 sm:p-5",
         highlight
           ? "border-primary/30 bg-primary/[0.07]"
           : "border-border bg-surface",
@@ -74,37 +74,37 @@ export function CampanhaTemplate({
         subtitle={content.hero.subtitle}
       />
 
-      <div className="mx-auto max-w-3xl px-6">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
         {/* Pilares */}
-        <section className="border-t border-border py-11">
+        <section className="border-t border-border py-9 sm:py-11">
           <SectionHeading
             label="Como atuamos"
             title="Os pilares da campanha"
             description="Uma operação integrada que conecta estratégia, criação e mensuração em torno de um único objetivo de negócio."
           />
-          <div className="mt-7">
+          <div className="mt-6 sm:mt-7">
             <IconCardGrid cards={content.pillars} columns={3} />
           </div>
         </section>
 
         {/* Cronograma */}
-        <section className="border-t border-border py-11">
+        <section className="border-t border-border py-9 sm:py-11">
           <SectionHeading
             label="Cronograma"
             title="Plano em fases"
           />
-          <div className="mt-7">
+          <div className="mt-6 sm:mt-7">
             <Phases phases={content.schedule} layout="rows" />
           </div>
         </section>
 
         {/* Entregas */}
-        <section className="border-t border-border py-11">
+        <section className="border-t border-border py-9 sm:py-11">
           <SectionHeading
             label="Escopo"
             title="Entregas inclusas"
           />
-          <div className="mt-7">
+          <div className="mt-6 sm:mt-7">
             <Checklist items={content.deliverables} />
             {content.excluded.length > 0 ? (
               <ExcludedBox items={content.excluded} />
@@ -113,12 +113,12 @@ export function CampanhaTemplate({
         </section>
 
         {/* Investimento */}
-        <section className="border-t border-border py-11">
+        <section className="border-t border-border py-9 sm:py-11">
           <SectionHeading
             label="Investimento"
             title="Como funciona o investimento"
           />
-          <div className="mt-7 grid gap-3.5 sm:grid-cols-2">
+          <div className="mt-6 grid gap-3 sm:mt-7 sm:grid-cols-2 sm:gap-3.5">
             <FeeCard pricing={investment.managementFee} highlight />
             {investment.productionFee ? (
               <FeeCard pricing={investment.productionFee} />
@@ -141,7 +141,7 @@ export function CampanhaTemplate({
         </section>
 
         {/* CTA */}
-        <section className="border-t border-border py-11">
+        <section className="border-t border-border py-9 sm:py-11">
           <ProposalCta content={content.cta} />
         </section>
 

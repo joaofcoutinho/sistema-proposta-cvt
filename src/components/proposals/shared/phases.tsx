@@ -16,11 +16,11 @@ export function Phases({ phases, layout = "rows" }: PhasesProps) {
             key={phase.title}
             className="rounded-2xl border border-border bg-surface p-4 transition-colors hover:border-border-strong"
           >
-            <div className="flex items-center justify-between">
-              <span className="font-mono text-xs text-foreground/35">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs text-foreground/35 tabular-nums">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <span className="rounded-full bg-primary/10 px-2.5 py-0.5 font-mono text-[11px] text-primary-soft">
+              <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[11px] text-primary-soft">
                 {phase.duration}
               </span>
             </div>
@@ -43,17 +43,17 @@ export function Phases({ phases, layout = "rows" }: PhasesProps) {
       {phases.map((phase, index) => (
         <div
           key={phase.title}
-          className="flex gap-4 rounded-2xl border border-border bg-surface p-4 transition-colors hover:border-border-strong sm:p-5"
+          className="flex gap-3 rounded-xl border border-border bg-surface p-3.5 transition-colors hover:border-border-strong sm:gap-4 sm:rounded-2xl sm:p-5"
         >
-          <div className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-primary/15 bg-primary/10 font-mono text-sm font-semibold text-primary-soft">
+          <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-primary/15 bg-primary/10 text-xs font-semibold tabular-nums text-primary-soft sm:size-9 sm:rounded-xl sm:text-sm">
             {String(index + 1).padStart(2, "0")}
           </div>
           <div className="min-w-0 flex-1">
-            <div className="flex items-start justify-between gap-3">
-              <p className="text-sm font-semibold tracking-tight text-foreground">
+            <div className="flex flex-wrap items-start justify-between gap-2 sm:flex-nowrap sm:gap-3">
+              <p className="text-[13.5px] font-semibold tracking-tight text-foreground sm:text-sm">
                 {phase.title}
               </p>
-              <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-0.5 font-mono text-[11px] whitespace-nowrap text-primary-soft">
+              <span className="shrink-0 rounded-full bg-primary/10 px-2 py-0.5 text-[10.5px] whitespace-nowrap text-primary-soft sm:px-2.5 sm:text-[11px]">
                 {phase.duration}
               </span>
             </div>

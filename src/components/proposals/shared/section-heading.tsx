@@ -30,7 +30,7 @@ export function SectionHeading({
       {label ? (
         <p
           className={cn(
-            "eyebrow mb-2.5 flex items-center gap-2 text-primary-soft",
+            "eyebrow mb-2 flex flex-wrap items-center gap-2 text-primary-soft sm:mb-2.5",
             align === "center" && "justify-center",
           )}
         >
@@ -43,11 +43,11 @@ export function SectionHeading({
           {label}
         </p>
       ) : null}
-      <h2 className="text-xl font-semibold tracking-tight text-balance text-foreground sm:text-[1.625rem]">
+      <h2 className="text-[1.25rem] font-semibold tracking-tight text-balance text-foreground sm:text-[1.625rem]">
         {title}
       </h2>
       {description ? (
-        <p className="mt-2.5 text-sm leading-relaxed text-pretty text-muted-foreground sm:text-[0.9375rem]">
+        <p className="mt-2 text-[13.5px] leading-relaxed text-pretty text-muted-foreground sm:mt-2.5 sm:text-[0.9375rem]">
           {description}
         </p>
       ) : null}

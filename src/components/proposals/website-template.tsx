@@ -111,13 +111,13 @@ export function WebsiteTemplate({ client, proposal }: ProposalTemplateProps) {
       <div className="mx-6 h-px bg-border" />
 
       {/* Portfólio */}
-      <section className="mx-auto max-w-5xl px-6 py-10">
+      <section className="mx-auto max-w-5xl px-4 py-9 sm:px-6 sm:py-10">
         <SectionHeading
           label="Nosso portfólio"
           title="Projetos entregues"
           description="Cada projeto nasce de um Discovery estratégico. Conheça cases reais de clientes que confiaram na Convertido para construir sua presença digital."
         />
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-7 grid gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {content.portfolio.map((project) => (
             <PortfolioCard key={project.url} project={project} />
           ))}
@@ -127,19 +127,19 @@ export function WebsiteTemplate({ client, proposal }: ProposalTemplateProps) {
       <div className="mx-6 h-px bg-border" />
 
       {/* Valores */}
-      <section className="mx-auto max-w-5xl px-6 py-10">
+      <section className="mx-auto max-w-5xl px-4 py-9 sm:px-6 sm:py-10">
         <SectionHeading
           label="Por que a Convertido"
           title="Tecnologia + criatividade integradas"
           description="Um site Convertido não é só bonito — ele é construído para crescer junto com o seu negócio."
         />
-        <div className="mt-8">
+        <div className="mt-7 sm:mt-8">
           <IconCardGrid cards={content.values} columns={3} />
         </div>
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-5xl px-6 pt-4 pb-12">
+      <section className="mx-auto max-w-5xl px-4 pt-4 pb-10 sm:px-6 sm:pb-12">
         <ProposalCta
           content={content.cta}
           badge="Oferta especial"
