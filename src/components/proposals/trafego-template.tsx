@@ -48,26 +48,8 @@ function TrafegoDashboard({ data }: { data: DashboardData }) {
         ))}
       </div>
 
-      {/* gráfico de barras */}
-      <div className="mt-4 rounded-xl border border-border bg-surface-2 p-3 sm:mt-5 sm:p-4">
-        <p className="eyebrow mb-3 text-muted-foreground">Receita por semana</p>
-        <div className="flex h-32 items-end gap-1.5">
-          {data.weeklyBars.map((bar) => (
-            <div
-              key={bar.week}
-              className="flex flex-1 flex-col items-center gap-1.5"
-            >
-              <div
-                className="w-full rounded-t bg-gradient-to-t from-primary to-accent"
-                style={{ height: `${Math.max((bar.value / maxBar) * 100, 4)}%` }}
-              />
-              <span className="text-[9px] text-muted-foreground">
-                {bar.week}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* gráfico de linha — tendência semanal */}
+      <RevenueLineChart bars={data.weeklyBars} maxValue={maxBar} />
 
       {/* breakdown por canal */}
       <div className="mt-5 flex flex-col gap-3">
@@ -88,6 +70,129 @@ function TrafegoDashboard({ data }: { data: DashboardData }) {
               />
             </div>
           </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Gráfico de linha minimalista — área sutil + curva suave + ponto final em destaque.
+ * SVG escalável; usa preserveAspectRatio="none" pra esticar horizontal e
+ * vector-effect="non-scaling-stroke" pra manter a espessura da linha.
+ */
+function RevenueLineChart({
+  bars,
+  maxValue,
+}: {
+  bars: { week: string; value: number }[];
+  maxValue: number;
+}) {
+  if (bars.length === 0) return null;
+
+  const W = 600;
+  const H = 180;
+  const PAD = { top: 14, right: 10, bottom: 6, left: 10 };
+  const chartW = W - PAD.left - PAD.right;
+  const chartH = H - PAD.top - PAD.bottom;
+
+  const points = bars.map((bar, i) => ({
+    x:
+      PAD.left +
+      (bars.length === 1 ? chartW / 2 : (i / (bars.length - 1)) * chartW),
+    y:
+      PAD.top +
+      chartH -
+      (Math.max(bar.value, 0) / Math.max(maxValue, 1)) * chartH,
+    week: bar.week,
+    value: bar.value,
+  }));
+
+  // Catmull-Rom -> cubic Bézier (curva suave que passa por todos os pontos)
+  const linePath = (() => {
+    if (points.length === 1) return `M ${points[0].x} ${points[0].y}`;
+    let d = `M ${points[0].x} ${points[0].y}`;
+    for (let i = 0; i < points.length - 1; i++) {
+      const p0 = points[Math.max(0, i - 1)];
+      const p1 = points[i];
+      const p2 = points[i + 1];
+      const p3 = points[Math.min(points.length - 1, i + 2)];
+      const c1x = p1.x + (p2.x - p0.x) / 6;
+      const c1y = p1.y + (p2.y - p0.y) / 6;
+      const c2x = p2.x - (p3.x - p1.x) / 6;
+      const c2y = p2.y - (p3.y - p1.y) / 6;
+      d += ` C ${c1x} ${c1y}, ${c2x} ${c2y}, ${p2.x} ${p2.y}`;
+    }
+    return d;
+  })();
+
+  const baseY = PAD.top + chartH;
+  const lastPoint = points[points.length - 1];
+  const firstPoint = points[0];
+  const areaPath = `${linePath} L ${lastPoint.x} ${baseY} L ${firstPoint.x} ${baseY} Z`;
+
+  return (
+    <div className="mt-4 rounded-xl border border-border bg-surface-2 p-4 sm:mt-5 sm:p-5">
+      <div className="mb-3 flex items-baseline justify-between">
+        <p className="eyebrow text-muted-foreground">Receita por semana</p>
+        <span className="text-[10px] tabular-nums text-muted-foreground/70">
+          Pico em {lastPoint.week}
+        </span>
+      </div>
+
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="none"
+        className="h-32 w-full sm:h-40"
+        role="img"
+        aria-label="Gráfico de receita por semana"
+      >
+        <defs>
+          <linearGradient id="trafegoLineArea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.22" />
+            <stop offset="100%" stopColor="var(--primary)" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+
+        {/* área sob a curva */}
+        <path d={areaPath} fill="url(#trafegoLineArea)" />
+
+        {/* linha principal */}
+        <path
+          d={linePath}
+          stroke="var(--primary)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+          vectorEffect="non-scaling-stroke"
+        />
+
+        {/* ponto final com halo */}
+        <circle
+          cx={lastPoint.x}
+          cy={lastPoint.y}
+          r="9"
+          fill="var(--primary)"
+          opacity="0.18"
+        />
+        <circle
+          cx={lastPoint.x}
+          cy={lastPoint.y}
+          r="3.5"
+          fill="var(--background)"
+          stroke="var(--primary)"
+          strokeWidth="2"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+
+      {/* labels das semanas */}
+      <div className="mt-2 flex justify-between px-1 text-[10px] font-medium text-muted-foreground sm:text-[11px]">
+        {bars.map((b) => (
+          <span key={b.week} className="text-center">
+            {b.week}
+          </span>
         ))}
       </div>
     </div>
